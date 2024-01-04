@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "hw11-web-fastapi"
+version = "0.1.0"
+description = "REST API for contacts storage and management"
+authors = ["Dishalex <dishalex@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "hw11_web_fastapi"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.108.0"
+alembic = "^1.13.1"
+sqlalchemy = "^2.0.24"
+asyncpg = "^0.29.0"
+uvicorn = "^0.25.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
