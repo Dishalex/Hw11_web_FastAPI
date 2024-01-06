@@ -3,12 +3,13 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio  import AsyncSession
 
 from src.database.db import get_db
-from src.routes import contacts
+from src.routes import contacts, auth
 from src.conf import messages
 
 app = FastAPI()
 
 
+app.include_router(auth.router, prefix="/api")
 app.include_router(contacts.router, prefix="/api")
 
 

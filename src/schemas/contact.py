@@ -2,6 +2,8 @@ from pydantic import BaseModel, Field, EmailStr
 from datetime import datetime, date
 from typing import Optional
 
+from src.schemas.user import UserResponse
+
 
 class ContactModel(BaseModel):
     first_name: str = Field(max_lenght=25)
@@ -22,6 +24,7 @@ class ContactResponse(BaseModel):
     additional_data: str 
     created_at: datetime
     updated_at: datetime
+    user: UserResponse | None
 
     
     class Config:
