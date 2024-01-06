@@ -1,4 +1,7 @@
 # Hw11_web_FastAPI
+# Hw12_web_FastAPI
+
+
 REST API for contacts storage and managemant
 
 Мета цього домашнього завдання — створити REST API для зберігання та управління контактами. API повинен бути побудований з використанням інфраструктури FastAPI та використовувати SQLAlchemy для управління базою даних.
