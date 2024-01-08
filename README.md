@@ -170,7 +170,7 @@ dependencies=[Depends(access_to_rote_all)]
 
 
 
-# Hw12_web_FastAPI
+# Hw13_web_FastAPI
 Перша частина
 
 У цьому домашньому завданні ми продовжуємо доопрацьовувати застосунок REST API із домашнього завдання 12.
