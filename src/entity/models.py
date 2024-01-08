@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, func, Enum
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, func, Enum
 from sqlalchemy.types import Date
 
 from sqlalchemy.orm import DeclarativeBase, relationship
@@ -7,7 +7,6 @@ import enum
 
 class Base(DeclarativeBase):
     pass
-
 
 
 class Contact(Base):
@@ -42,3 +41,4 @@ class User(Base):
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
     role = Column("role", Enum(Role), default=Role.user, nullable=True)
+    confirmed = Column(Boolean, default=False, nullable=True)
