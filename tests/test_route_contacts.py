@@ -18,7 +18,7 @@ CONTACT = {
 def token(client, user, session, monkeypatch):
     mock_send_email = MagicMock()
     monkeypatch.setattr("src.routes.auth.send_email", mock_send_email)
-    client.post("/hw11/auth/signup", json=user)
+    client.post("/api/auth/signup", json=user)
 
     current_user: User = (
         session.query(User).filter(User.email == user.get("email")).first()
@@ -26,7 +26,7 @@ def token(client, user, session, monkeypatch):
     current_user.confirmed = True
     session.commit()
     response = client.post(
-        "/hw11/auth/login",
+        "/api/auth/login",
         data={"username": user.get("email"), "password": user.get("password")},
     )
     data = response.json()
@@ -40,7 +40,7 @@ def test_create_contact(client, token, monkeypatch):
         monkeypatch.setattr("fastapi_limiter.FastAPILimiter.identifier", AsyncMock())
         monkeypatch.setattr("fastapi_limiter.FastAPILimiter.http_callback", AsyncMock())
         response = client.post(
-            "/hw11/contacts/",
+            "/api/contacts/",
             json=CONTACT,
             headers={"Authorization": f"Bearer {token}"},
         )
@@ -56,7 +56,7 @@ def test_get_contacts(client, token, monkeypatch):
         monkeypatch.setattr("fastapi_limiter.FastAPILimiter.identifier", AsyncMock())
         monkeypatch.setattr("fastapi_limiter.FastAPILimiter.http_callback", AsyncMock())
         response = client.get(
-            "/hw11/contacts/", headers={"Authorization": f"Bearer {token}"}
+            "/api/contacts/", headers={"Authorization": f"Bearer {token}"}
         )
         assert response.status_code == 200, response.text
         data = response.json()
@@ -71,7 +71,7 @@ def test_get_contact_by_id(client, token, monkeypatch):
         monkeypatch.setattr("fastapi_limiter.FastAPILimiter.identifier", AsyncMock())
         monkeypatch.setattr("fastapi_limiter.FastAPILimiter.http_callback", AsyncMock())
         response = client.get(
-            "/hw11/contacts/contact/1", headers={"Authorization": f"Bearer {token}"}
+            "/api/contacts/contact/1", headers={"Authorization": f"Bearer {token}"}
         )
         assert response.status_code == 200, response.text
         data = response.json()
@@ -86,7 +86,7 @@ def test_get_contact_by_id_not_found(client, token, monkeypatch):
         monkeypatch.setattr("fastapi_limiter.FastAPILimiter.identifier", AsyncMock())
         monkeypatch.setattr("fastapi_limiter.FastAPILimiter.http_callback", AsyncMock())
         response = client.get(
-            "/hw11/contacts/contact/100", headers={"Authorization": f"Bearer {token}"}
+            "/api/contacts/contact/100", headers={"Authorization": f"Bearer {token}"}
         )
         assert response.status_code == 404, response.text
         data = response.json()
@@ -100,7 +100,7 @@ def test_update_contact(client, token, monkeypatch, session):
         monkeypatch.setattr("fastapi_limiter.FastAPILimiter.identifier", AsyncMock())
         monkeypatch.setattr("fastapi_limiter.FastAPILimiter.http_callback", AsyncMock())
         response = client.patch(
-            "/hw11/contacts/1",
+            "/api/contacts/1",
             json={"email": "ex@ex.com", "phone": "12345"},
             headers={"Authorization": f"Bearer {token}"},
         )
@@ -110,7 +110,7 @@ def test_update_contact(client, token, monkeypatch, session):
         contact = session.query(Contact).filter_by(id=1).first()
         assert contact.phone == "12345"
         response = client.get(
-            "/hw11/contacts/contact/1",
+            "/api/contacts/contact/1",
             headers={"Authorization": f"Bearer {token}"},
         )
         assert response.status_code == 200, response.text
