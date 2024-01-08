@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     MAIL_USERNAME: EmailStr = "example@mail.com"
     MAIL_PASSWORD: str = "postgres"
-    MAIL_FROM: str = "user"
+    MAIL_FROM: str = "user@example.com"
     MAIL_PORT: int = 234567
     MAIL_SERVER: str = "postgres"
     REDIS_DOMAIN: str = "localhost"
